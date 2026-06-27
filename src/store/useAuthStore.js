@@ -13,7 +13,6 @@ const useAuthStore = create((set) => ({
       set({ loading: false });
       return;
     }
-    authService.getGoogleRedirectResult?.().catch(() => {});
     authService.onAuthChanged(async (firebaseUser) => {
       if (firebaseUser) {
         let profile = await userService.getProfile(firebaseUser.uid);
