@@ -1,0 +1,18 @@
+{
+  "name": "AnimeVerse Explorer",
+  "short_name": "AnimeVerse",
+  "description": "Discover, track, and review your favorite anime",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
