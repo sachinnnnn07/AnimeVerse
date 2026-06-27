@@ -43,7 +43,7 @@ export default function LoginPage() {
       navigate('/');
     } catch (err) {
       if (err.code !== 'auth/popup-closed-by-user') {
-        addToast({ type: 'error', message: 'Google sign-in failed' });
+        addToast({ type: 'error', message: `Google error: ${err.code || err.message}` });
       }
     }
   };
