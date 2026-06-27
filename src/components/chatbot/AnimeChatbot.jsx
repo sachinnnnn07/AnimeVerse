@@ -405,7 +405,8 @@ export default function AnimeChatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="fixed bottom-20 right-4 sm:right-6 z-50 w-[340px] sm:w-[380px] h-[500px] flex flex-col glass-strong rounded-2xl shadow-2xl shadow-black/40 overflow-hidden"
+            className="fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-6 z-50 sm:w-95 sm:h-125 flex flex-col sm:rounded-2xl shadow-2xl shadow-black/40 overflow-hidden"
+            style={{ backgroundColor: 'var(--page-bg)' }}
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] bg-gradient-to-r from-primary-600/10 to-accent-600/10">
               <div className="flex items-center gap-2.5">
