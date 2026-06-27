@@ -9,6 +9,10 @@ const useAuthStore = create((set) => ({
   error: null,
 
   initialize: () => {
+    if (!authService.onAuthChanged) {
+      set({ loading: false });
+      return;
+    }
     authService.onAuthChanged(async (firebaseUser) => {
       if (firebaseUser) {
         let profile = await userService.getProfile(firebaseUser.uid);

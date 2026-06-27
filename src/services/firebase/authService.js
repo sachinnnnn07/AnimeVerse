@@ -12,7 +12,7 @@ import { auth } from './config';
 
 const googleProvider = new GoogleAuthProvider();
 
-export const authService = {
+export const authService = auth ? {
   loginWithEmail: (email, password) =>
     signInWithEmailAndPassword(auth, email, password),
 
@@ -29,4 +29,11 @@ export const authService = {
   resetPassword: (email) => sendPasswordResetEmail(auth, email),
 
   onAuthChanged: (callback) => onAuthStateChanged(auth, callback),
+} : {
+  loginWithEmail: () => Promise.reject(new Error('Firebase not configured')),
+  registerWithEmail: () => Promise.reject(new Error('Firebase not configured')),
+  loginWithGoogle: () => Promise.reject(new Error('Firebase not configured')),
+  logout: () => Promise.resolve(),
+  resetPassword: () => Promise.reject(new Error('Firebase not configured')),
+  onAuthChanged: null,
 };

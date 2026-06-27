@@ -1,27 +1,27 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import AnimeCard from './AnimeCard';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-export default function AnimeCarousel({ anime, loading, title }) {
+export default function AnimeCarousel({ anime, loading }) {
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const checkScroll = () => {
+  const checkScroll = useCallback(() => {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
     setCanScrollLeft(scrollLeft > 10);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
+  }, []);
 
   useEffect(() => {
     checkScroll();
     const el = scrollRef.current;
     if (el) el.addEventListener('scroll', checkScroll, { passive: true });
     return () => el?.removeEventListener('scroll', checkScroll);
-  }, [anime]);
+  }, [anime, checkScroll]);
 
   const scroll = (direction) => {
     if (!scrollRef.current) return;
@@ -38,8 +38,8 @@ export default function AnimeCarousel({ anime, loading, title }) {
       >
         {loading
           ? Array.from({ length: 8 }, (_, i) => (
-              <div key={i} className="flex-shrink-0 w-[160px] sm:w-[180px]" style={{ scrollSnapAlign: 'start' }}>
-                <div className="rounded-2xl overflow-hidden bg-dark-card border border-white/[0.06]">
+              <div key={i} className="shrink-0 w-40 sm:w-45" style={{ scrollSnapAlign: 'start' }}>
+                <div className="rounded-2xl overflow-hidden border border-white/6" style={{ backgroundColor: 'var(--dark-card-bg)' }}>
                   <Skeleton className="aspect-[3/4] w-full rounded-none" />
                   <div className="p-3 space-y-2">
                     <Skeleton className="h-4 w-3/4" />
@@ -51,7 +51,7 @@ export default function AnimeCarousel({ anime, loading, title }) {
           : anime?.map((item, index) => (
               <div
                 key={item.mal_id}
-                className="flex-shrink-0 w-[160px] sm:w-[180px]"
+                className="shrink-0 w-40 sm:w-45"
                 style={{ scrollSnapAlign: 'start' }}
               >
                 <AnimeCard anime={item} index={index} />
